@@ -12,8 +12,13 @@ int SoldadosAsalto::getVelocidad(){
 int SoldadosAsalto::getFuerzaE(){
 	return fuerzaE;
 }
-int SoldadosAsalto::atacar(bool){
-	
+int SoldadosAsalto::atacar(bool tipo){
+	if(tipo){
+		//es un doldado de asalto
+		return pFuerza * 10;
+	}else{
+		return pFuerza * (10+(velocidad*2));
+	}
 }
 bool SoldadosAsalto::defender(int){
 	

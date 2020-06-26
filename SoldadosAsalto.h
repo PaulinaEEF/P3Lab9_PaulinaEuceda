@@ -3,6 +3,8 @@
 
 #include "Soldado.h"
 
+class adminHonduras;
+class adminOtroAs;
 class SoldadosAsalto : public Soldado
 {
 	public:
@@ -16,6 +18,8 @@ class SoldadosAsalto : public Soldado
 		~SoldadosAsalto();
 	protected:
 		int velocidad, fuerzaE;
+		friend class adminHonduras;
+		friend class adminOtroAs;
 };
 
 #endif

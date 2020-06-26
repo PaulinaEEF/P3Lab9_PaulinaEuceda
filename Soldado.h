@@ -4,6 +4,8 @@
 #include<string>
 
 using std::string;
+
+class adminHonduras;
 class Soldado
 {
 	public:
@@ -20,6 +22,7 @@ class Soldado
 	protected:
 		string nombre;
 		int pVida, pFuerza;
+		friend class adminHonduras;
 };
 
 #endif

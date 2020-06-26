@@ -12,8 +12,14 @@ int SoldadosSoporte::getBlindaje(){
 int SoldadosSoporte::getCamuflaje(){
 	return camuflaje;
 }
-int SoldadosSoporte::atacar(bool){
-	
+int SoldadosSoporte::atacar(bool tipo){
+	if(tipo){
+		//es un soldado de asalto
+		return pFuerza*(15+camuflaje);
+	}
+	else{
+		return pFuerza*10;
+	}
 }
 bool SoldadosSoporte::defender(int){
 	

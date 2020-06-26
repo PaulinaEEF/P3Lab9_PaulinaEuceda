@@ -3,6 +3,8 @@
 
 #include "Soldado.h"
 
+class adminHondurasSop;
+class adminOtroSop;
 class SoldadosSoporte : public Soldado
 {
 	public:
@@ -16,6 +18,8 @@ class SoldadosSoporte : public Soldado
 		~SoldadosSoporte();
 	protected:
 		int blindaje, camuflaje;
+		friend class adminHondurasSop;
+		friend class adminOtroSop;
 };
 
 #endif
