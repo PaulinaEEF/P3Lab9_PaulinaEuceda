@@ -13,7 +13,7 @@ class SoldadosAsalto : public Soldado
 		int getVelocidad();
 		int getFuerzaE();
 		int atacar(bool);
-		bool defender(int);
+		bool defender(int, bool);
 		
 		~SoldadosAsalto();
 	protected:

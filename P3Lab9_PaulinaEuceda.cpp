@@ -7,6 +7,10 @@
 #include "SoldadosAsalto.h"
 #include "SoldadosSoporte.h"
 #include <vector>
+#include <cstdlib>
+#include <ctime>
+
+#include <conio.h>
 
 using std::cin;
 using std::cout;
@@ -351,7 +355,245 @@ int main(int argc, char** argv) {
 				break;
 			}
 			case 6:{//simular
+				srand((unsigned)time(0));
+				int numeroRandomH;
+				int numRanSolH;
+				int numeroRandomO;
+				int numRanSolO, vidasH=0, vidasO=0;
 				
+				vidasH = vectorAsaltosH.size() + vectorSoporteH.size();
+				vidasO = vectorAsaltosO.size() + vectorSoporteO.size();
+				
+				
+				bool jugar = true;
+				int turnos =0;
+				
+				while(jugar){
+					numeroRandomH = rand() % 2;
+					numeroRandomO = rand() % 2;
+					
+					if(turnos % 2 == 0){//turno de Honduras
+						
+						
+						if(numeroRandomH == 0){//ataca un asaltante
+							if(vectorAsaltosH.size()!=0){
+								cout<<"Turno de Honduras"<<endl;
+								numRanSolH = rand() % vectorAsaltosH.size();
+								
+								
+								if(numeroRandomO == 0){//defiende un asaltante
+									if(vectorAsaltosO.size()!=0){
+										
+										cout<<"1 Ataca un asaltante hondurenio a un asaltante de otro pais"<<endl;
+										
+										numRanSolO = rand() % vectorAsaltosO.size();
+										if(vectorAsaltosO[numRanSolO]->defender(vectorAsaltosH[numRanSolH]->atacar(true), true)){
+											vectorAsaltosO.erase(vectorAsaltosO.begin() + numRanSolO);
+											cout<<"Murio un asaltante :0"<<endl;
+											vidasO--;
+											
+											if(vidasO == 0){
+												cout<<"Gano Honduras"<<endl;
+												jugar = false;
+												break;
+											}
+										}
+									}else{
+										turnos--;
+									}
+								}
+								
+								else{//defiende un soportante
+									if(vectorSoporteO.size()!=0){
+										
+										cout<<"2 Ataca un asaltante hondurenio a un soportante de otro pais"<<endl;
+										
+										numRanSolO = rand() % vectorSoporteO.size();
+										if(vectorSoporteO[numRanSolO]->defender(vectorAsaltosH[numRanSolH]->atacar(false), true)){
+											vectorSoporteO.erase(vectorSoporteO.begin() + numRanSolO);
+											cout<<"Murio un soportante :0"<<endl;
+											vidasO--;
+											if(vidasO == 0){
+												cout<<"Gano Honduras"<<endl;
+												jugar = false;
+												break;
+											}
+										}
+									}else{
+										turnos--;
+									}
+								}
+							
+							}else{
+								turnos--;
+							}
+							
+						}else{//ataca un soportante
+							if(vectorSoporteH.size()!=0){
+								
+								numRanSolH = rand() % vectorSoporteH.size();
+								
+								if(numeroRandomO == 0){//defiende un asaltante
+									
+									if(vectorAsaltosO.size()!=0){
+										
+										cout<<"3 Ataca un soportante hondurenio a un asaltante de otro pais"<<endl;
+										
+										numRanSolO = rand() % vectorAsaltosO.size();
+										
+										if(vectorAsaltosO[numRanSolO]->defender(vectorSoporteH[numRanSolH]->atacar(true), false)){
+											vectorAsaltosO.erase(vectorAsaltosO.begin() + numRanSolO);
+											cout<<"Murio un asaltante :0"<<endl;
+											vidasO--;
+											if(vidasO == 0){
+												cout<<"Gano Honduras"<<endl;
+												jugar = false;
+												break;
+											}
+										}
+									}else{
+										turnos--;
+									}	
+								
+								}
+								
+								else{//defiende un soportante
+									if(vectorSoporteO.size()!=0){
+										
+										cout<<"4 Ataca un soportante hondurenio a un soportante de otro pais"<<endl;
+										
+										numRanSolO = rand() % vectorSoporteO.size();
+										if(vectorSoporteO[numRanSolO]->defender(vectorSoporteH[numRanSolH]->atacar(false), false)){
+											vectorSoporteO.erase(vectorSoporteO.begin() + numRanSolO);
+											cout<<"Murio un soportante :0"<<endl;
+											vidasO--;
+											if(vidasO == 0){
+												cout<<"Gano Honduras"<<endl;
+												jugar = false;
+												break;
+											}
+										}
+									}else{
+										turnos--;
+									}
+								}
+							}else{
+								turnos--;
+							}
+							
+						}
+						
+					}
+					else{
+						//turno del otro
+						
+						if(numeroRandomO == 0){//ataca un asaltante
+							if(vectorAsaltosO.size()!=0){
+								cout<<"Turno de otro pais"<<endl;
+								numRanSolO = rand() % vectorAsaltosO.size();
+								
+								if(numeroRandomH == 0){//defiende un asaltante
+									if(vectorAsaltosH.size()!=0){
+										
+										cout<<"5 Ataca un asaltante de otro pais a un asaltante hondurenio"<<endl;
+										numRanSolH = rand() % vectorAsaltosH.size();
+										
+										if(vectorAsaltosH[numRanSolH]->defender(vectorAsaltosO[numRanSolO]->atacar(true), true)){
+											vectorAsaltosH.erase(vectorAsaltosH.begin() + numRanSolH);
+											cout<<"Murio un asaltante :("<<endl;
+											vidasH--;
+											if(vidasH == 0){
+												cout<<"Gano el otro pais"<<endl;
+												jugar = false;
+												break;
+											}
+										}
+									}else{
+										turnos--;
+									}
+								}
+								
+								else{//defiende un soportante
+									if(vectorSoporteH.size()!=0){
+										
+										cout<<"6 Ataca un asaltante de otro pais a un soportante hondurenio"<<endl;
+										numRanSolH = rand() % vectorSoporteH.size();
+										if(vectorSoporteH[numRanSolH]->defender(vectorAsaltosO[numRanSolO]->atacar(false), true)){
+											vectorSoporteH.erase(vectorSoporteH.begin() + numRanSolH);
+											cout<<"Murio un soportante :("<<endl;
+											vidasH--;
+											if(vidasH == 0){
+												cout<<"Gano el otro pais"<<endl;
+												jugar = false;
+												break;
+											}
+										}
+									}else{
+										turnos--;
+									}
+								}
+							}else{
+								turnos--;
+							}
+							
+							
+						}else{//ataca un soportante
+							if(vectorSoporteO.size()!=0){
+								
+								numRanSolO = rand() % vectorSoporteO.size();
+								
+								if(numeroRandomH == 0){//defiende un asaltante
+									if(vectorAsaltosH.size()!=0){
+										
+										cout<<"7 Ataca un soportante de otro pais a un asaltante hondurenio"<<endl;
+										numRanSolH = rand() % vectorAsaltosH.size();
+										if(vectorAsaltosH[numRanSolH]->defender(vectorSoporteO[numRanSolO]->atacar(true), false)){
+											vectorAsaltosH.erase(vectorAsaltosH.begin() + numRanSolH);
+											cout<<"Murio un asaltante :("<<endl;
+											vidasH--;
+											if(vidasH == 0){
+												cout<<"Gano el otro pais"<<endl;
+												jugar = false;
+												break;
+											}
+										}
+									}else{
+										turnos--;
+									}
+								}
+								
+								else{//defiende un soportante
+									if(vectorSoporteO.size()!=0){
+										
+										cout<<"8 Ataca un soportante de otro pais a un soportante hondurenio"<<endl;
+										numRanSolH = rand() % vectorSoporteO.size();
+										if(vectorSoporteH[numRanSolH]->defender(vectorSoporteO[numRanSolO]->atacar(false), false)){
+											vectorSoporteH.erase(vectorSoporteH.begin() + numRanSolH);
+											cout<<"Murio un soportante :("<<endl;
+											vidasH--;
+											if(vidasH == 0){
+												cout<<"Gano el otro pais"<<endl;
+												jugar = false;
+												break;
+											}
+										}
+									}else{
+										turnos--;
+									}
+								}
+							}else{
+								turnos--;
+							}
+							
+						}
+					}
+					
+					
+					turnos++;
+					cout<<endl<<endl;
+					getch();
+				}
+				cout<<endl<<endl;
 				break;
 			}
 			case 7:{//salir

@@ -1,9 +1,10 @@
 #ifndef SOLDADO_H
 #define SOLDADO_H
 
-#include<string>
+#include<iostream>
 
 using std::string;
+using std::cout;
 
 class adminHonduras;
 class Soldado
@@ -16,7 +17,7 @@ class Soldado
 		int getPFuerza();
 		
 		virtual int atacar(bool)=0;
-		virtual bool defender(int)=0;
+		virtual bool defender(int, bool)=0;
 		
 		~Soldado();
 	protected:

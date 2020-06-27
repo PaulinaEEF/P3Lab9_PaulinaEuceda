@@ -21,8 +21,20 @@ int SoldadosSoporte::atacar(bool tipo){
 		return pFuerza*10;
 	}
 }
-bool SoldadosSoporte::defender(int){
-	
+bool SoldadosSoporte::defender(int ataque, bool tipo){
+	if(tipo){
+		//soldado de asalto
+		pVida -= (ataque/(blindaje*2));
+	}else{
+		pVida -= ataque;
+	}
+	cout<<pVida<<" vida en soporte\n";
+	if(pVida<=0){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 SoldadosSoporte::~SoldadosSoporte()
